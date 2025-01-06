@@ -1,0 +1,42 @@
+{% extends 'front/layouts/app.html' %}
+
+{% block content %}
+
+  <section class="about_section layout_padding">
+    <div class="container">
+
+        <h2 class="text-center mb-4 text-decoration-underline">Contact Us</h2>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+            <div class="alert alert-success">{{ success }}</div>
+        {% endif %}
+
+        <form action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required value="{{ name|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required value="{{ email|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter the subject" required value="{{ subject|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here" required>{{ message|default:'' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+        </form>
+
+    </div>
+  </section>
+
+{% endblock %}
